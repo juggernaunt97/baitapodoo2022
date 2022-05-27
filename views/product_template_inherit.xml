@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="list_code_view_form" model="ir.ui.view">
+            <field name="name">List code Form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='taxes_id']" position="before">
+                    <form>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="product_warranty_code"/>
+                            <field name="discount"/>
+                        </group>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+         <!-- Tree(list) View -->
+        <record id="list_code_view_tree" model="ir.ui.view">
+            <field name="name">customer list</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="product_warranty_code"/>
+                    <field name="total" widget="monetary"/>
+                    <field name="discount"/>
+                    <field name="calculated_discount_total" sum="Discount total" widget="monetary"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_warranty_view_search" model="ir.ui.view">
+            <field name="name">warranty search</field>
+            <field name="model">product.template</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="date_to"/>
+                    <field name="date_from"/>
+                    <filter string="Check date" name="not_out_date" domain="[('date_to','&gt;=',(datetime.date.today()).strftime('%Y-%m-%d')),
+                                                                                ('date_from','&lt;=',(datetime.date.today()).strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
+        <record id='list_code_action' model='ir.actions.act_window'>
+            <field name="name">product list</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_update_w" model="ir.actions.server">
+            <field name="name">Update</field>
+            <field name="model_id" ref="ostrovit_app.model_product_template"/>
+            <field name="binding_model_id" ref="ostrovit_app.model_product_template"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_confirm()</field>
+        </record>
+        <menuitem name="product template" id="s_product_template_menu" parent="ostrovit_app.sale_order_base_menu" action="list_code_action" sequence="99"/>
+    </data>
+
+</odoo>

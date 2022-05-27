@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+         <record id="list_discount_code_view_form" model="ir.ui.view">
+            <field name="name">list.discount.code.form</field>
+            <field name="model">list.discount.code</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="customer_discount_code"/>
+                            <field name="exp_date"/>
+                            <field name="mfg_date"/>
+                            <field name="is_used"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+         </record>
+
+        <record id="list_discount_code_view_tree" model="ir.ui.view">
+            <field name="name">list.discount.code.tree</field>
+            <field name="model">list.discount.code</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_discount_code"/>
+                    <field name="exp_date"/>
+                    <field name="mfg_date"/>
+                    <field name="is_used"/>
+                </tree>
+            </field>
+        </record>
+        <record id="list_discount_code_action" model="ir.actions.act_window">
+            <field name="name">List discount code</field>
+            <field name="res_model">list.discount.code</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_update_code" model="ir.actions.server">
+            <field name="name">Update</field>
+            <field name="model_id" ref="ostrovit_app.model_list_discount_code"/>
+            <field name="binding_model_id" ref="ostrovit_app.model_list_discount_code"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.update_selected_code()</field>
+        </record>
+
+    <!--    <menuitem name="OstroVit sale order " id="sale_order_base_menu"/>-->
+        <menuitem name="List discount code" id="list_discount_code" parent="sale_order_base_menu" action="list_discount_code_action"/>
+    </data>
+</odoo>

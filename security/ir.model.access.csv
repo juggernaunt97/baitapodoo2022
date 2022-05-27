@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_advanced_sale,sale.order default,model_sale_order,,1,0,0,0
+acl_advanced_sale_user,sale.order,model_sale_order,group_advanced_sale,1,1,1,1
+acl_list_discount_code,list.discount.code default,model_list_discount_code,,1,0,0,0
+acl_list_discount_code_user,list.discount.code,model_list_discount_code,group_advanced_sale,1,1,1,1
+acl_product_template,product.template default,model_product_template,,1,0,0,0
+acl_product_template_user,product.template,model_product_template,group_advanced_sale,1,1,1,1
